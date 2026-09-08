@@ -1,0 +1,129 @@
+name: Cross-Distro Build Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: distro-test-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  distro-build:
+    name: ${{ matrix.distro }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        distro:
+          - ubuntu:24.04
+          - ubuntu:22.04
+          - debian:13
+          - fedora:42
+          - archlinux:latest
+          - opensuse/tumbleweed
+    container:
+      image: ${{ matrix.distro }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps (Ubuntu/Debian)
+        if: startsWith(matrix.distro, 'ubuntu') || startsWith(matrix.distro, 'debian')
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            git curl ca-certificates unzip zip xz-utils \
+            build-essential clang cmake ninja-build pkg-config \
+            libgtk-3-dev squashfs-tools
+        env:
+          DEBIAN_FRONTEND: noninteractive
+
+      - name: Install deps (Fedora)
+        if: startsWith(matrix.distro, 'fedora')
+        run: |
+          dnf install -y git curl unzip zip xz \
+            gcc gcc-c++ make clang cmake ninja-build pkgconf-pkg-config \
+            gtk3-devel squashfs-tools
+        env:
+          CI: 'true'
+
+      - name: Install deps (Arch)
+        if: startsWith(matrix.distro, 'archlinux')
+        run: |
+          pacman -Sy --noconfirm --needed \
+            git curl unzip zip xz base-devel clang cmake ninja \
+            pkg-config gtk3 squashfs-tools
+
+      - name: Install deps (openSUSE)
+        if: startsWith(matrix.distro, 'opensuse')
+        run: |
+          zypper -n --gpg-auto-import-keys refresh
+          zypper -n install git curl unzip zip xz gcc-c++ make \
+            clang cmake ninja pkg-config gtk3-devel squashfs
+
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Cache Cargo registry + build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: cargo-${{ matrix.distro }}-${{ hashFiles('Cargo.lock') }}
+          restore-keys: cargo-${{ matrix.distro }}-
+
+      - name: Build + test Rust core (CLI)
+        run: |
+          cargo build --locked --release
+          cargo test --locked --release
+
+      - name: Cache Flutter SDK + pub
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/flutter
+            ~/.pub-cache
+          key: flutter-stable-${{ runner.os }}-${{ hashFiles('unblocker_gui/pubspec.lock') }}
+          restore-keys: flutter-stable-${{ runner.os }}-
+
+      - name: Fetch Flutter SDK
+        run: |
+          if [ ! -d "$HOME/flutter/.git" ]; then
+            git clone -q --depth 1 --branch stable \
+              https://github.com/flutter/flutter.git "$HOME/flutter"
+          fi
+          "$HOME/flutter/bin/flutter" --version
+
+      - name: Build Nukera AppImage (full ship path)
+        # Self-contained: rebuilds Rust + Flutter + assembles AppImage
+        # (static type2 runtime, zstd squashfs). Same script as local builds.
+        run: bash scripts/build-appimage.sh
+
+      - name: Smoke-check artifact
+        run: |
+          IMG=$(ls Nukera-*.AppImage | head -1)
+          [ -s "$IMG" ] || exit 1
+          [ "$(head -c 4 "$IMG")" = "$(printf '\x7fELF')" ] || exit 1
+          echo "OK: $IMG ($(du -h "$IMG" | cut -f1))"
+          ./"$IMG" --verify || true
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nukera-${{ matrix.distro }}
+          path: Nukera-*.AppImage
+          if-no-files-found: error
+          retention-days: 14

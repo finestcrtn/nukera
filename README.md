@@ -1,5 +1,7 @@
 # Nukera (unblocker) — One-Toggle DPI + IP-Block Bypass
 
+![Cross-Distro Build](https://github.com/finestcrtn/nukera/actions/workflows/distro-test.yml/badge.svg)
+
 Universal bypass for Russia: DPI desync (TSPU) + IP/DNS blocks. Linux (Arch/Manjaro packaged). Rust core + Flutter GUI.
 
 ## What it does
