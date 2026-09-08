@@ -21,13 +21,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro:
-          - ubuntu:24.04
-          - ubuntu:22.04
-          - debian:13
-          - fedora:42
-          - archlinux:latest
-          - opensuse/tumbleweed
+        include:
+          - distro: ubuntu:24.04
+            slug: ubuntu-24.04
+          - distro: ubuntu:22.04
+            slug: ubuntu-22.04
+          - distro: debian:13
+            slug: debian-13
+          - distro: fedora:42
+            slug: fedora-42
+          - distro: archlinux:latest
+            slug: archlinux
+          - distro: opensuse/tumbleweed
+            slug: opensuse-tumbleweed
     container:
       image: ${{ matrix.distro }}
 
@@ -49,7 +55,7 @@ jobs:
       - name: Install deps (Fedora)
         if: startsWith(matrix.distro, 'fedora')
         run: |
-          dnf install -y git curl unzip zip xz \
+          dnf install -y git curl which unzip zip xz \
             gcc gcc-c++ make clang cmake ninja-build pkgconf-pkg-config \
             gtk3-devel squashfs-tools
         env:
@@ -66,7 +72,7 @@ jobs:
         if: startsWith(matrix.distro, 'opensuse')
         run: |
           zypper -n --gpg-auto-import-keys refresh
-          zypper -n install git curl unzip zip xz gcc-c++ make \
+          zypper -n install bash which git curl unzip zip xz gcc-c++ make \
             clang cmake ninja pkg-config gtk3-devel squashfs
 
       - name: Install Rust toolchain
@@ -82,8 +88,8 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: cargo-${{ matrix.distro }}-${{ hashFiles('Cargo.lock') }}
-          restore-keys: cargo-${{ matrix.distro }}-
+          key: cargo-${{ matrix.slug }}-${{ hashFiles('Cargo.lock') }}
+          restore-keys: cargo-${{ matrix.slug }}-
 
       - name: Build + test Rust core (CLI)
         run: |
@@ -96,8 +102,8 @@ jobs:
           path: |
             ~/flutter
             ~/.pub-cache
-          key: flutter-stable-${{ runner.os }}-${{ hashFiles('unblocker_gui/pubspec.lock') }}
-          restore-keys: flutter-stable-${{ runner.os }}-
+          key: flutter-stable-${{ matrix.slug }}-${{ hashFiles('unblocker_gui/pubspec.lock') }}
+          restore-keys: flutter-stable-${{ matrix.slug }}-
 
       - name: Fetch Flutter SDK
         run: |
@@ -116,14 +122,13 @@ jobs:
         run: |
           IMG=$(ls Nukera-*.AppImage | head -1)
           [ -s "$IMG" ] || exit 1
-          [ "$(head -c 4 "$IMG")" = "$(printf '\x7fELF')" ] || exit 1
+          [ "$(head -c 4 "$IMG")" = "$(printf '\177ELF')" ] || exit 1
           echo "OK: $IMG ($(du -h "$IMG" | cut -f1))"
-          ./"$IMG" --verify || true
 
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
         with:
-          name: Nukera-${{ matrix.distro }}
+          name: Nukera-${{ matrix.slug }}
           path: Nukera-*.AppImage
           if-no-files-found: error
           retention-days: 14
