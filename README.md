@@ -1,50 +1,48 @@
 # Nukera
 
-[English](README.md) · [Русский](README.ru.md)
+[Русский](README.md) · [English](README.en.md)
 
-![Cross-Distro Build](https://github.com/finestcrtn/nukera/actions/workflows/distro-test.yml/badge.svg)
+## Что это
 
-## What it is
+![Nukera](assets/nukera_img.png)
 
-Nukera unblocks websites blocked by your ISP or state censorship:
+Nukera — GUI-обёртка над Zapret: **Instagram, Telegram, YouTube, Discord и все остальные** заблокированные сайты. Включил — работает.
 
-**Instagram (incl. Reels), Telegram, YouTube, Discord, WhatsApp** — and other blocked sites. Out of the box.
+## Почему Nukera
 
-## Why Nukera
+- **Просто включи.** Открыл, нажал ▶ — всё. Без терминала, без конфигов, без ручной настройки прокси.
+- **Встроенный прокси для Telegram.** Приложение Telegram подключается через него автоматически — настраивать ничего не нужно.
+- **Работает там, где другие сдаются.** Instagram Reels, WhatsApp и Telegram — сразу, без возни с настройками.
+- **Бесплатно, локально и приватно.** Всё на вашем компьютере, данные никуда не отправляются.
+- **Открытый исходный код.** Ядро на Rust + GUI на Flutter.
 
-- **Just works.** Launch, click ▶, done. No terminal, no config files, no manual proxy setup.
-- **Telegram proxy built in.** The Telegram app connects through Nukera's built-in proxy automatically — no separate setup needed.
-- **Works where other tools give up.** Instagram Reels, WhatsApp and Telegram are handled by default — no fiddling with per-site settings.
-- **Free, local, private.** Runs 100% on your machine. Nothing is sent anywhere.
-- **Open source.** Rust core + Flutter GUI.
+## Установка — 30 секунд
 
-## Install — 30 seconds
+1. Скачайте **`Nukera-Linux-x86_64.AppImage`** из [Releases](https://github.com/finestcrtn/nukera/releases/latest).
+2. Запустите двойным кликом.
+3. Примите **один** запрос пароля при первом запуске — Nukera установится и откроется. Дальше работает без запросов.
 
-1. Download **`Nukera-Linux-x86_64.AppImage`** from [Releases](https://github.com/finestcrtn/nukera/releases/latest).
-2. Double-click it.
-3. Accept **one** password prompt on first launch — Nukera installs itself and opens. After that it works without prompts.
+- **Обновление:** скачайте новый AppImage и запустите двойным кликом.
+- **Удаление:** запустите AppImage с флагом `--uninstall`.
 
-- **Update:** download the new AppImage, double-click it.
-- **Remove:** run the AppImage with `--uninstall`.
+## Где может не работать
 
-## Where it may not work
+- Нужен Linux с **systemd** и свежим glibc (≥ 2.39): Arch/Manjaro, Fedora ≥ 39 (вкл. Silverblue), Ubuntu 24.04 LTS, Debian 13, openSUSE Tumbleweed.
+- На старых Ubuntu 22.04 / Debian 12 может не запуститься — будет показано предупреждение.
+- Некоторые провайдеры всё же блокируют часть сайтов — никакой инструмент не может гарантировать работу на каждой сети.
+- Пока нет сборок под Windows / macOS / мобильные.
 
-- Requires Linux with **systemd** and a recent glibc (≥ 2.39): Arch/Manjaro, Fedora ≥ 39 (incl. Silverblue), Ubuntu 24.04 LTS, Debian 13, openSUSE Tumbleweed.
-- Older Ubuntu 22.04 / Debian 12 may not start — a warning is shown.
-- Some ISPs still block some sites; no tool can guarantee every site on every network.
-- No Windows / macOS / mobile build yet.
-
-## From source (for developers)
+## Из исходников (для разработчиков)
 
 ```bash
-# needs: cargo (rustup), Flutter stable, squashfs-tools
+# нужно: cargo (rustup), Flutter stable, squashfs-tools
 scripts/build-appimage.sh
 ```
 
-## What's inside
+## Что внутри
 
-Rust core + Flutter (GTK) GUI · `nfqws` (zapret) DPI desync with strategy pool · native Telegram WebSocket proxy · DoH resolver + curated hosts IP maps · systemd daemon with passwordless polkit.
+Ядро на Rust + GUI на Flutter (GTK) · `nfqws` (zapret) DPI-десинхронизация со стратегиями · нативный WebSocket-прокси для Telegram · DoH-резолвер + карты IP в hosts · systemd-демон с polkit без пароля.
 
-## Help
+## Помощь
 
-`Nukera-Linux-x86_64.AppImage --verify` — check what your system supports before installing.
+`Nukera-Linux-x86_64.AppImage --verify` — проверка, что поддерживает ваша система, до установки.
