@@ -18,6 +18,12 @@ jobs:
   distro-build:
     name: ${{ matrix.distro }}
     runs-on: ubuntu-latest
+    # openSUSE Tumbleweed image ships a PATH without /usr/bin (and thus
+    # without bash/sh) for the runner's docker-exec bootstrap. Inject a full
+    # PATH at job level → every exec (runner steps + Node action spawns) sees
+    # standard tool locations. Harmless for all other distros.
+    env:
+      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     strategy:
       fail-fast: false
       matrix:
@@ -76,20 +82,10 @@ jobs:
             clang cmake ninja pkg-config gtk3-devel squashfs
 
       - name: Install Rust toolchain
-        if: ${{ !startsWith(matrix.distro, 'opensuse') }}
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
           components: rustfmt, clippy
-
-      # openSUSE Tumbleweed image has a minimal PATH (no /usr/bin) for the
-      # runner's docker-exec bootstrap, which breaks Node actions that spawn
-      # `bash`. Plain `run:` steps execute fine, so install rustup here.
-      - name: Install Rust toolchain (openSUSE)
-        if: startsWith(matrix.distro, 'opensuse')
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable --profile minimal -y
-          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
 
       - name: Cache Cargo registry + build
         uses: actions/cache@v4
