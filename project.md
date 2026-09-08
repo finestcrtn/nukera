@@ -245,6 +245,12 @@ scripts/build-appimage.sh          # needs cargo + flutter + squashfs-tools
 
 **Supported matrix**: full Arch/Manjaro/CachyOS · Fedora ≥ 39 (+ Silverblue immutable) · Ubuntu 24.04 LTS · Debian 13 · openSUSE Tumbleweed; warn-only Debian 12/Ubuntu 22.04 (glibc 2.34–2.38); unsupported musl, non-systemd, no-polkit.
 
+### Cross-distro CI (`.github/workflows/distro-test.yml`)
+
+Parallel container matrix on `ubuntu-latest` runners — Ubuntu 24.04, Ubuntu 22.04, Debian 13, Fedora 42, Arch, openSUSE Tumbleweed. Each job: distro pkg-manager deps → rustup stable (RUSTFLAGS=-D warnings) → `cargo build --locked --release` + `cargo test` → Flutter stable (cached via actions/cache) → `scripts/build-appimage.sh` (full ship path) → artifact upload. No FUSE on runners → CI proves **build/tests**, runtime stays verified on real machines.
+
+Env quirks fixed: container `options: --env PATH=… --env HOME=/root` (openSUSE image has no /usr/bin in PATH; runner hardcodes `-e HOME=/github/home` which breaks rustup as root).
+
 ---
 
 ## 8. Static Hosts (always-on)
