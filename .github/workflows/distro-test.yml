@@ -18,14 +18,17 @@ jobs:
   distro-build:
     name: ${{ matrix.distro }}
     runs-on: ubuntu-latest
-    # openSUSE Tumbleweed image ships a PATH without /usr/bin (and thus
-    # without bash/sh) for the runner's docker-exec bootstrap. Inject a full
-    # PATH at job level → every exec (runner steps + Node action spawns) sees
-    # standard tool locations. Also pin HOME to the euid (root): rustup aborts
-    # when running as root with $HOME=/github/home (euid home is /root).
-    env:
-      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-      HOME: /root
+    # The runner creates the container with `-e HOME=/github/home` and the
+    # IMAGE's own PATH. openSUSE Tumbleweed ships PATH without /usr/bin (no
+    # bash/sh), and rustup aborts when run as root with $HOME=/github/home
+    # (euid home is /root). `container.options` are appended to `docker
+    # create`, so both -e flags win over the runner's defaults:
+    #   PATH=/usr/... → every exec (runner steps + Node action bash spawns)
+    #                  resolves standard tools
+    #   HOME=/root    → rustup's euid home check passes
+    container:
+      image: ${{ matrix.distro }}
+      options: --env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env HOME=/root
     strategy:
       fail-fast: false
       matrix:
@@ -42,8 +45,6 @@ jobs:
             slug: archlinux
           - distro: opensuse/tumbleweed
             slug: opensuse-tumbleweed
-    container:
-      image: ${{ matrix.distro }}
 
     steps:
       - name: Checkout
