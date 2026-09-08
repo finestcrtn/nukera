@@ -21,9 +21,11 @@ jobs:
     # openSUSE Tumbleweed image ships a PATH without /usr/bin (and thus
     # without bash/sh) for the runner's docker-exec bootstrap. Inject a full
     # PATH at job level → every exec (runner steps + Node action spawns) sees
-    # standard tool locations. Harmless for all other distros.
+    # standard tool locations. Also pin HOME to the euid (root): rustup aborts
+    # when running as root with $HOME=/github/home (euid home is /root).
     env:
       PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      HOME: /root
     strategy:
       fail-fast: false
       matrix:
