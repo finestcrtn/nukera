@@ -76,10 +76,20 @@ jobs:
             clang cmake ninja pkg-config gtk3-devel squashfs
 
       - name: Install Rust toolchain
+        if: ${{ !startsWith(matrix.distro, 'opensuse') }}
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
           components: rustfmt, clippy
+
+      # openSUSE Tumbleweed image has a minimal PATH (no /usr/bin) for the
+      # runner's docker-exec bootstrap, which breaks Node actions that spawn
+      # `bash`. Plain `run:` steps execute fine, so install rustup here.
+      - name: Install Rust toolchain (openSUSE)
+        if: startsWith(matrix.distro, 'opensuse')
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable --profile minimal -y
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
 
       - name: Cache Cargo registry + build
         uses: actions/cache@v4
