@@ -6,7 +6,7 @@
 
 ![Nukera](assets/nukera_img.png)
 
-Nukera is a GUI layer over Zapret: **Instagram, Telegram, YouTube, Discord and everything else** that's blocked. Just turn it on.
+Nukera is a GUI app based on Zapret’s principles and other ways of bypass, designed to unblock **Instagram, Telegram, YouTube, Discord**, and all other blocked websites — even those that other Zapret alternatives cannot unblock. Best of all, it requires no manual configuration: Just turn it on, and it works.
 
 ## Why Nukera
 
@@ -22,8 +22,7 @@ Nukera is a GUI layer over Zapret: **Instagram, Telegram, YouTube, Discord and e
 2. Double-click it.
 3. Accept **one** password prompt on first launch — Nukera installs itself and opens. After that it works without prompts.
 
-- **Update:** download the new AppImage, double-click it.
-- **Remove:** run the AppImage with `--uninstall`.
+
 
 ## Where it may not work
 
