@@ -1,0 +1,29 @@
+[workspace]
+members = ["crates/unblocker-core", "crates/unblocker"]
+resolver = "2"
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "sync", "time", "io-util", "net", "fs", "process", "signal"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+aes = "0.8"
+ctr = "0.9"
+sha2 = "0.10"
+hmac = "0.12"
+tokio-rustls = "0.26"
+cipher = "0.4"
+once_cell = "1"
+parking_lot = "0.12"
+base64 = "0.22"
+byteorder = "1"
+socket2 = "0.5"
+tokio-util = { version = "0.7" }
+rand = "0.8"
+hex = "0.4"
+futures-util = "0.3"
+rustls = { version = "0.23", features = ["ring"] }
+rustls-pki-types = "1"

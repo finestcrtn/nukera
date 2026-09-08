@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Nukera
+Comment=One-tap DPI + IP-block bypass
+Exec=AppRun
+Icon=nukera_icon
+Terminal=false
+Type=Application
+Categories=Network;Security;System;

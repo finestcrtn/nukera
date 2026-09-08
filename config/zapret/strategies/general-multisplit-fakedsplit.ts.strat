@@ -1,0 +1,15 @@
+--filter-udp=443
+--hostlist=/etc/unblocker/hostlists/reestr.txt
+--dpi-desync=fake
+--dpi-desync-repeats=6
+--dpi-desync-udplen-increment=10
+--dpi-desync-udplen-pattern=0xDEADBEEF
+--dpi-desync-fake-unknown-udp=0x00000000
+--new
+--filter-tcp=80,443
+--hostlist=/etc/unblocker/hostlists/reestr.txt
+--dpi-desync=multisplit
+--dpi-desync-split-pos=1,midsld
+--dpi-desync-fooling=ts
+--dpi-desync-autottl=2
+--dpi-desync-repeats=6

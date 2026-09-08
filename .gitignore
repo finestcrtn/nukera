@@ -1,0 +1,19 @@
+/target
+**/target
+vendor/byedpi/build
+vendor/byedpi/ciadpi
+vendor/tg-ws-proxy-rs/target
+*.AppImage
+*.deb
+*.rpm
+*.pkg.tar.zst
+.commandcode/
+.env
+.DS_Store
+vendor/byedpi
+# Flutter build artifacts
+unblocker_gui/build/
+unblocker_gui/.dart_tool/
+unblocker_gui/.flutter-plugins
+unblocker_gui/.flutter-plugins-dependencies
+unblocker_gui/pubspec.lock

@@ -1,0 +1,20 @@
+[Unit]
+Description=Unblocker — DPI + IP-block bypass daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/nukera/unblocker daemon
+Restart=on-failure
+RestartSec=3
+Environment=RUST_LOG=info
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_DAC_OVERRIDE CAP_SETPCAP CAP_SYS_ADMIN
+NoNewPrivileges=no
+
+# Root daemon owns all cleanup on SIGTERM (nft flush, hosts strip, TG proxy).
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

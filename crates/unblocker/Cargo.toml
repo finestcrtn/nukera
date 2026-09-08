@@ -1,0 +1,22 @@
+[package]
+name = "unblocker"
+version = "0.1.0"
+edition = "2021"
+description = "Unblocker CLI — one-toggle DPI + IP-block bypass (Linux Arch MVP)"
+default-run = "unblocker"
+
+[[bin]]
+name = "unblocker"
+path = "src/main.rs"
+
+[dependencies]
+unblocker-core = { path = "../unblocker-core" }
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+  clap = { version = "4", features = ["derive"] }
+  dirs = "6"

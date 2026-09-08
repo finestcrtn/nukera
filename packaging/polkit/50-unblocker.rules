@@ -1,0 +1,32 @@
+// 50-unblocker.rules — passwordless control for any active local user.
+// NOT tied to a username: works on any machine, any single-user desktop.
+// Allows systemctl start/stop/enable/disable of unblocker.service only,
+// plus the exact privileged helper commands the emergency cleanup uses.
+polkit.addRule(function(action, subject) {
+    var local = subject.local && subject.active;
+
+    if (local &&
+        action.id === "org.freedesktop.systemd1.manage-units" &&
+        action.lookup("unit") === "unblocker.service") {
+        return polkit.Result.YES;
+    }
+    if (local &&
+        action.id === "org.freedesktop.systemd1.manage-unit-files" &&
+        action.lookup("unit") === "unblocker.service") {
+        return polkit.Result.YES;
+    }
+    // AppImage first-install needs a clean state after copying the unit.
+    if (local && action.id === "org.freedesktop.systemd1.reload-daemon") {
+        return polkit.Result.YES;
+    }
+    if (local && action.id === "org.freedesktop.policykit.exec") {
+        var program = action.lookup("program");
+        if (program == "/usr/lib/nukera/unblocker-root-cleanup.sh" ||
+            program == "/usr/bin/nft" || program == "/usr/sbin/nft" ||
+            program == "/usr/bin/cp" || program == "/usr/bin/pkill" ||
+            program == "/usr/bin/rm") {
+            return polkit.Result.YES;
+        }
+    }
+    return polkit.Result.NOT_HANDLED;
+});

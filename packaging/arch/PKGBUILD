@@ -1,0 +1,93 @@
+# Maintainer: Nukera <nukera@example.invalid>
+# Arch package for the Nukera (unblocker) bypass app.
+# Build from the workspace root:  makepkg -f -p packaging/arch/PKGBUILD  (or scripts/build-arch-pkg.sh)
+pkgname=unblocker
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="One-tap DPI + IP-block bypass (Nukera) — nfqws desync + nft + hosts + native TG proxy"
+arch=('x86_64')
+url=""
+license=('GPL3')
+depends=('gtk3' 'nftables' 'polkit' 'psmisc' 'glib2' 'curl' 'ca-certificates' 'xdg-utils' 'libcap')
+# flutter is NOT an official pacman package (AUR/~/opt/flutter on many
+# setups). The build script (scripts/build-arch-pkg.sh) locates it and
+# prepends it to PATH; do not list it in makedepends or makepkg will fail
+# the dependency check on machines where pacman cannot resolve it.
+makedepends=('cargo' 'git' 'base-devel' 'cmake' 'ninja' 'clang')
+source=()
+sha256sums=()
+# ring 0.17 fails to link ("undefined symbol: ring_core_0_17_14__LIMBS_window5...")
+# under makepkg's global LTO flags. Keep this package LTO-free.
+options=('!lto')
+install=unblocker.install
+
+# Workspace root (this PKGBUILD lives in packaging/arch/; resolve the
+# real path even when makepkg sources it through a symlink in the root).
+_root="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../.." && pwd)"
+
+build() {
+    echo "=== Rust build ==="
+    cargo build --release --manifest-path "$_root/Cargo.toml"
+    echo "=== Flutter GUI build ==="
+    (cd "$_root/unblocker_gui" && flutter pub get && flutter build linux --release)
+    echo "=== zapret binaries present ==="
+    ls -lh "$_root/vendor/zapret/nfqws"
+}
+
+package() {
+    _BUNDLE="$_root/unblocker_gui/build/linux/x64/release/bundle"
+
+    # ── CLI (PATH convenience + standalone bundle copy for the unit) ──
+    install -Dm755 "$_root/target/release/unblocker" "$pkgdir/usr/bin/unblocker"
+    install -Dm755 "$_root/target/release/unblocker" "$pkgdir/usr/lib/nukera/unblocker"
+    install -Dm755 -d "$pkgdir/usr/bin"
+    cat > "$pkgdir/usr/bin/unblocker-gui" << 'WEOF'
+#!/bin/sh
+export LD_LIBRARY_PATH="/usr/lib/nukera/lib:${LD_LIBRARY_PATH}"
+exec /usr/lib/nukera/unblocker-gui "$@"
+WEOF
+    chmod 755 "$pkgdir/usr/bin/unblocker-gui"
+
+    # ── DPI engine ───────────────────────────────────────────────────
+    install -Dm755 "$_root/vendor/zapret/nfqws" "$pkgdir/usr/lib/unblocker/nfqws"
+
+    # ── Flutter GUI bundle (self-contained: lib/, data/) ────────────
+    if [ -f "$_BUNDLE/unblocker-gui" ]; then
+        install -d "$pkgdir/usr/lib/nukera"
+        cp -a "$_BUNDLE/." "$pkgdir/usr/lib/nukera/"
+        chmod 755 "$pkgdir/usr/lib/nukera/unblocker-gui"
+    else
+        echo "ERROR: flutter bundle not found at $_BUNDLE" >&2
+        exit 1
+    fi
+    # Explicit icon (also referenced by the .desktop entry).
+    install -Dm644 "$_root/assets/icons/nukera_icon.png" "$pkgdir/usr/lib/nukera/data/nukera_icon.png"
+    install -Dm644 "$_root/assets/icons/nukera_icon.png" "$pkgdir/usr/share/pixmaps/nukera.png"
+
+    # ── Emergency scripts (polkit-approved helper path) ──────────────
+    install -Dm755 "$_root/scripts/unblocker-kill.sh" "$pkgdir/usr/lib/nukera/unblocker-kill.sh"
+    install -Dm755 "$_root/scripts/unblocker-root-cleanup.sh" "$pkgdir/usr/lib/nukera/unblocker-root-cleanup.sh"
+    install -Dm755 "$_root/scripts/unblocker-kill.sh" "$pkgdir/usr/bin/unblocker-kill"
+
+    # ── Config: strategies (top-level + pool + byebyedpi subpool) ────
+    install -d "$pkgdir/etc/unblocker/strategies/pool/byebyedpi"
+    install -m644 "$_root"/config/zapret/strategies/*.strat "$pkgdir/etc/unblocker/strategies/"
+    install -m644 "$_root"/config/zapret/strategies/pool/*.strat "$pkgdir/etc/unblocker/strategies/pool/"
+    install -m644 "$_root"/config/zapret/strategies/pool/byebyedpi/*.strat "$pkgdir/etc/unblocker/strategies/pool/byebyedpi/"
+    ln -s "$pkgdir/etc/unblocker/strategies/general-hostfakesplit.strat" "$pkgdir/etc/unblocker/strategy.conf"
+
+    # ── Config: hostlists + static hosts ─────────────────────────────
+    install -d "$pkgdir/etc/unblocker/hostlists" "$pkgdir/etc/unblocker/sites"
+    install -m644 "$_root"/config/zapret/hostlists/*.sites "$pkgdir/etc/unblocker/hostlists/"
+    install -m644 "$_root"/config/zapret/hostlists/ig-fb-known-good.txt "$pkgdir/etc/unblocker/hostlists/"
+    install -m644 "$_root/config/hosts/telegram-web.txt" "$pkgdir/etc/unblocker/hostlists/telegram-web.txt"
+    install -m644 "$_root/config/hosts/magila-cdn.txt" "$pkgdir/etc/unblocker/hostlists/magila-cdn.txt"
+    touch "$pkgdir/etc/unblocker/hostlists/auto.txt"
+
+    # ── systemd unit + polkit rule ───────────────────────────────────
+    install -Dm644 "$_root/packaging/systemd/unblocker.service" "$pkgdir/usr/lib/systemd/system/unblocker.service"
+    install -Dm644 "$_root/packaging/polkit/50-unblocker.rules" "$pkgdir/etc/polkit-1/rules.d/50-unblocker.rules"
+
+    # ── Desktop entry ────────────────────────────────────────────────
+    install -Dm644 "$_root/unblocker.desktop" "$pkgdir/usr/share/applications/unblocker.desktop"
+}

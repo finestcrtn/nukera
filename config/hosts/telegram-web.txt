@@ -1,0 +1,42 @@
+# Telegram Web hosts — maps Telegram Web domains to non-blocked DC2 edge IP.
+# Source: Flowseal/zapret-discord-youtube + medvedeff-true/Zapret-GUI
+# IP 149.154.167.220 is Telegram DC2 edge, not on Roskomnadzor blacklist.
+# Browser connects here → ISP firewall passes → Telegram Web loads.
+# nfqws desyncs SNI so ISP doesn't see telegram.org in the handshake.
+149.154.167.220 desktop.telegram.org
+149.154.167.220 core.telegram.org
+149.154.167.220 updates.telegram.org
+149.154.167.220 web.telegram.org
+149.154.167.220 webk.telegram.org
+149.154.167.220 webz.telegram.org
+149.154.167.220 weba.telegram.org
+149.154.167.220 api.telegram.org
+149.154.167.220 td.telegram.org
+149.154.167.220 telegram.org
+149.154.167.220 t.me
+149.154.167.220 telegram.me
+149.154.167.220 telegram.dog
+149.154.167.220 telegram.space
+149.154.167.220 telesco.pe
+149.154.167.220 tg.dev
+149.154.167.220 kws1.web.telegram.org
+149.154.167.220 kws2.web.telegram.org
+149.154.167.220 kws3.web.telegram.org
+149.154.167.220 kws4.web.telegram.org
+149.154.167.220 kws5.web.telegram.org
+149.154.167.220 zws2.web.telegram.org
+149.154.167.220 zws4.web.telegram.org
+149.154.167.220 pluto.web.telegram.org
+149.154.167.220 venus.web.telegram.org
+149.154.167.220 aurora.web.telegram.org
+149.154.167.220 vesta.web.telegram.org
+149.154.167.220 flora.web.telegram.org
+149.154.167.220 kws2-1.web.telegram.org
+149.154.167.220 kws4-1.web.telegram.org
+149.154.167.220 zws2-1.web.telegram.org
+149.154.167.220 zws4-1.web.telegram.org
+149.154.167.220 pluto-1.web.telegram.org
+149.154.167.220 venus-1.web.telegram.org
+149.154.167.220 aurora-1.web.telegram.org
+149.154.167.220 vesta-1.web.telegram.org
+149.154.167.220 flora-1.web.telegram.org

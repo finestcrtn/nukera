@@ -1,0 +1,15 @@
+--filter-udp=443
+--hostlist=/etc/unblocker/hostlists/reestr.txt
+--hostlist=/etc/unblocker/hostlists/social-meta.sites
+--hostlist-auto=/etc/unblocker/hostlists/auto.txt
+--dpi-desync=hostfakesplit
+--dpi-desync-fooling=ts
+--dpi-desync-autottl=2
+--new
+--filter-tcp=80,443
+--hostlist=/etc/unblocker/hostlists/reestr.txt
+--hostlist=/etc/unblocker/hostlists/social-meta.sites
+--hostlist-auto=/etc/unblocker/hostlists/auto.txt
+--dpi-desync=hostfakesplit
+--dpi-desync-fooling=ts
+--dpi-desync-autottl=2

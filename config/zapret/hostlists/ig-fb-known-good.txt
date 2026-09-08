@@ -1,0 +1,71 @@
+# Meta / Instagram / Facebook / WhatsApp CDN ranges.
+#
+# Sources:
+#   - V3nilla/IPSets-For-Bypass-in-Russia (curated Meta edge IPs)
+#   - bol-van/rulist (resolvable hostnames)
+#   - empirical probe of this user's network (May 2026): the
+#     /etc/hosts entries 157.240.9.174 and 157.240.0.35 worked.
+#     The /etc/unblocker/hostlists/ig-fb-known-good.txt is loaded by
+#     nfqws via --ipset= so nfqws does NOT desync traffic to these
+#     IPs (they're already clean — desync would only break them).
+#
+# This list is ADDITIVE: any IP we discover later via
+# /etc/unblocker/sites/<host>.conf "IP override" entries is
+# appended to this file. The next install-discover run merges
+# without removing working entries.
+#
+# Format: one CIDR per line. nfqws parses each line as a network
+# for its in-memory ipset.
+
+# Confirmed working on this user's network (probed May 2026)
+157.240.0.35/32
+157.240.9.174/32
+
+# V3nilla's curated Meta edge range
+# (the full /16 is large; nfqws will skip DPI for any host whose
+# SNI resolves to an IP in this range)
+157.240.0.0/16
+
+# WhatsApp CDN (separate from Meta Graph)
+157.240.0.60/32
+157.240.0.0/24
+
+# Telegram DCs (per official core.telegram.org/getProxyConfig)
+91.108.4.0/22
+91.108.8.0/22
+91.108.12.0/22
+91.108.16.0/22
+91.108.20.0/22
+91.108.56.0/22
+149.154.160.0/20
+149.154.175.50/32
+
+# === Expanded CDN anycast seed (v6.1) ===
+# Sourced from cloudflare.com/ips, fastly.com, Meta IRR, Telegram DC list.
+# These are seeds only — install-discover probes and replaces entries.
+# Format: CIDR per line; ipnet will enumerate.
+31.13.0.0/16            # Meta AS32934
+173.252.64.0/18         # Meta older range
+199.201.65.0/24         # Meta legacy CDN
+199.201.66.0/24         # Meta legacy CDN
+199.201.67.0/24         # Meta legacy CDN
+104.244.42.0/24         # Twitter/X
+104.244.43.0/24
+104.244.44.0/24
+104.244.45.0/24
+104.244.46.0/24
+104.244.47.0/24
+104.244.74.0/24
+199.59.148.0/22         # Twitter legacy
+199.16.156.0/22
+192.133.76.0/22
+162.159.140.0/22
+# Telegram DC subnets (core.telegram.org/getProxyConfig)
+91.108.4.0/22
+91.108.8.0/22
+91.108.12.0/22
+91.108.16.0/22
+91.108.20.0/22
+91.108.56.0/22
+149.154.160.0/20
+185.76.151.0/24

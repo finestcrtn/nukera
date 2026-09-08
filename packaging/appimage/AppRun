@@ -1,0 +1,194 @@
+#!/bin/sh
+# AppRun — Nukera AppImage launcher + self-installer.
+#
+# One universal AppImage; the launcher detects how the host must be
+# provisioned and picks a layout at runtime (no per-distro variants):
+#
+#   standard   — /usr is writable: install into /usr/lib/nukera (same
+#                layout as the .pkg.tar.zst), unit + desktop + icon into
+#                /usr. Arch, Manjaro, Ubuntu 24.04, Fedora, Tumbleweed.
+#   immutable  — /usr is mounted read-only (findmnt): install into
+#                /var/lib/nukera, unit into /etc/systemd/system, polkit
+#                into /etc/polkit-1/rules.d, desktop into the user's
+#                ~/.local/share/applications. Fedora Silverblue, SteamOS-like.
+#
+# The AppImage is a read-only squashfs mount: it cannot manage nftables,
+# /etc/hosts or a systemd service from inside the mount. First run copies
+# its payload onto the real filesystem, installs unit + polkit rule, then
+# launches the installed GUI. Every later run just launches.
+#
+# Uninstall:  Nukera.AppImage --uninstall   (stops daemon, removes files)
+# Inspect:    Nukera.AppImage --verify      (prints detected layout, no root)
+set -u
+
+APPROOT="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+PAYLOAD="$APPROOT/payload"
+
+glibc_warn() {
+    v="$(ldd --version 2>/dev/null | sed -n '1s/.*\(2\.[0-9][0-9]*\).*/\1/p')"
+    [ -z "$v" ] && { echo "  warn: libc not glibc (musl?) — this build targets glibc >= 2.39." >&2; return; }
+    n="$(printf '%s' "$v" | tr -d '.')"
+    [ "$n" -lt 239 ] && echo "  warn: glibc $v < 2.39 — AppImage built for rolling distros (Arch/Manjaro, Fedora >= 39, Ubuntu 24.04+, Debian 13). May fail." >&2
+}
+
+# --- layout detection -----------------------------------------------------
+MODE=standard
+if [ "${NUKERA_FORCE_IMMUTABLE:-}" = 1 ]; then
+    MODE=immutable
+elif findmnt -no OPTIONS /usr 2>/dev/null | grep -qw ro; then
+    MODE=immutable
+fi
+[ "$MODE" = immutable ] && DEST=/var/lib/nukera || DEST=/usr/lib/nukera
+
+export LD_LIBRARY_PATH="$DEST/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+NEW_VER="$(cat "$PAYLOAD/version" 2>/dev/null || echo dev)"
+OLD_VER="$(cat "$DEST/version" 2>/dev/null || echo none)"
+
+gates() {
+    command -v systemctl >/dev/null 2>&1 || {
+        echo "Nukera requires systemd (systemctl) — not found on this system." >&2
+        echo "OpenRC/rc.d distros are not supported." >&2
+        exit 1
+    }
+    command -v pkexec >/dev/null 2>&1 || {
+        echo "Nukera requires a desktop session with polkit (pkexec)." >&2
+        echo "Run from a graphical session, or use the .pkg.tar.zst package." >&2
+        exit 1
+    }
+}
+
+do_stage() {
+    # Payload sits on a FUSE mount owned by this user; a pkexec'd root can
+    # read every host path except that mount. So stage the tree into
+    # $TMPDIR as the mount owner first, then let root copy it over.
+    STAGE="$(mktemp -d "${TMPDIR:-/tmp}/nukera-stage.XXXXXX")"
+    if [ "$MODE" = immutable ]; then
+        # /var layout: nukera+cli into /var/lib, unit + polkit into /etc,
+        # every /usr/lib reference rewritten to /var/lib.
+        mkdir -p "$STAGE/var/lib" "$STAGE/etc/systemd/system" \
+                 "$STAGE/etc/polkit-1/rules.d"
+        cp -a "$PAYLOAD/rootfs/usr/lib/nukera/."          "$STAGE/var/lib/nukera/"
+        cp -a "$PAYLOAD/rootfs/usr/lib/unblocker/."       "$STAGE/var/lib/unblocker/"
+        cp -a "$PAYLOAD/rootfs/etc/unblocker/."           "$STAGE/etc/unblocker/"
+        sed 's#/usr/lib/nukera#/var/lib/nukera#g' \
+            "$PAYLOAD/rootfs/usr/lib/systemd/system/unblocker.service" \
+            > "$STAGE/etc/systemd/system/unblocker.service"
+        sed 's#/usr/lib/nukera#/var/lib/nukera#g' \
+            "$PAYLOAD/rootfs/etc/polkit-1/rules.d/50-unblocker.rules" \
+            > "$STAGE/etc/polkit-1/rules.d/50-unblocker.rules"
+    else
+        cp -a "$PAYLOAD/rootfs/." "$STAGE/"
+    fi
+    if [ ! -s "$STAGE/${DEST#/}/version" ]; then
+        rm -rf "$STAGE"
+        echo "Payload staging failed — install aborted." >&2
+        exit 1
+    fi
+}
+
+install_as_root() {
+    if [ -n "${NUKERA_ROOT:-}" ]; then
+        mkdir -p "$NUKERA_ROOT"
+        cp -a "$STAGE/." "$NUKERA_ROOT/"
+        rm -rf "$STAGE"
+        STAGE=""
+        echo "  [test] installed into \$NUKERA_ROOT=$NUKERA_ROOT (systemd/polkit skipped)"
+        return 0
+    fi
+    pkexec /bin/cp -a --no-preserve=ownership "$STAGE"/. / || {
+        rm -rf "$STAGE"
+        STAGE=""
+        echo "Install cancelled or failed — nothing was changed." >&2
+        exit 1
+    }
+    rm -rf "$STAGE"
+    STAGE=""
+}
+
+do_install() {
+    echo "Nukera AppImage: installing in $MODE mode (one password prompt)…"
+    gates
+    glibc_warn
+    do_stage
+    install_as_root
+
+    if [ -z "${NUKERA_ROOT:-}" ]; then
+        # Polkit rule was in the copy above → the next calls stay silent.
+        systemctl daemon-reload
+        systemctl enable unblocker.service >/dev/null 2>&1 || true
+        if [ "$MODE" = immutable ]; then
+            if command -v restorecon >/dev/null 2>&1 \
+               && [ "$(getenforce 2>/dev/null)" = Enforcing ]; then
+                pkexec restorecon -RF /var/lib/nukera /var/lib/unblocker >/dev/null 2>&1 || true
+            fi
+            apps="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
+            mkdir -p "$apps"
+            sed 's#/usr/lib/nukera#/var/lib/nukera#g' \
+                "$PAYLOAD/rootfs/usr/share/applications/unblocker.desktop" \
+                > "$apps/unblocker.desktop"
+        fi
+    fi
+    echo "Installed ($MODE). Launching…"
+}
+
+do_uninstall() {
+    MO="[${MODE:-standard}]"
+    echo "Nukera AppImage: removing system install…"
+    # Daemon's SIGTERM handler flushes nft + strips /etc/hosts itself.
+    if [ -n "${NUKERA_ROOT:-}" ]; then
+        rm -rf "$NUKERA_ROOT/usr/lib/nukera" "$NUKERA_ROOT/usr/lib/unblocker" \
+            "$NUKERA_ROOT/var/lib/nukera" "$NUKERA_ROOT/var/lib/unblocker" \
+            "$NUKERA_ROOT/usr/lib/systemd/system/unblocker.service" \
+            "$NUKERA_ROOT/etc/systemd/system/unblocker.service" \
+            "$NUKERA_ROOT/etc/polkit-1/rules.d/50-unblocker.rules" 2>/dev/null || true
+        echo "$MO test-uninstalled from \$NUKERA_ROOT."
+        exit 0
+    fi
+    systemctl disable --now unblocker.service >/dev/null 2>&1 || true
+    pkexec /bin/rm -rf /usr/lib/nukera /usr/lib/unblocker \
+        /var/lib/nukera /var/lib/unblocker \
+        /usr/lib/systemd/system/unblocker.service \
+        /etc/systemd/system/unblocker.service || {
+        echo "Removal cancelled or failed." >&2
+        exit 1
+    }
+    # Rule still present (removed last) → daemon-reload stays silent.
+    systemctl daemon-reload 2>/dev/null || true
+    pkexec /bin/rm -f /etc/polkit-1/rules.d/50-unblocker.rules || true
+    rm -f "${XDG_DATA_HOME:-$HOME/.local/share}/applications/unblocker.desktop" \
+          "$HOME/.local/share/applications/unblocker.desktop" 2>/dev/null || true
+    echo "Uninstalled ($MODE). Kept /etc/unblocker data."
+    exit 0
+}
+
+do_verify() {
+    echo "Nukera AppImage self-check (no root):"
+    echo "  layout:     $MODE  (${DEST})   [NUKERA_FORCE_IMMUTABLE=${NUKERA_FORCE_IMMUTABLE:-off}]"
+    echo "  /usr ro:    $(findmnt -no OPTIONS /usr 2>/dev/null || echo 'n/a (single /)')"
+    echo "  systemd:    $(command -v systemctl >/dev/null 2>&1 && echo yes || echo NO — unsupported)"
+    echo "  pkexec:     $(command -v pkexec >/dev/null 2>&1 && echo yes || echo NO — needs desktop session)"
+    echo "  restorecon: $(command -v restorecon >/dev/null 2>&1 && echo present || echo absent)"
+    echo "  selinux:    $(getenforce 2>/dev/null || echo n/a)"
+    echo "  glibc:      $(ldd --version 2>/dev/null | head -1)"
+    glibc_warn
+    echo "  runtime:    static type2 (no libfuse2 required)"
+    echo "  current:    payload=$NEW_VER installed=$OLD_VER"
+    exit 0
+}
+
+case "${1:-}" in
+    --uninstall)    do_uninstall ;;
+    --install-only) do_install; exit 0 ;;
+    --verify)       do_verify ;;
+    --install)      : ;; # fall through to force re-install
+esac
+
+if [ "$OLD_VER" != "$NEW_VER" ] || [ ! -x "$DEST/unblocker-gui" ]; then
+    do_install
+fi
+
+# Version file matches but the GUI binary vanished — reinstall defensively.
+[ -x "$DEST/unblocker-gui" ] || do_install
+
+exec "$DEST/unblocker-gui" "$@"

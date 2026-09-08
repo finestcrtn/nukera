@@ -1,0 +1,57 @@
+# MagilaWEB CDN IPs for Instagram, Facebook, WhatsApp assets.
+# Source: https://github.com/MagilaWEB/unblock-youtube-discord
+# These are edge IPs that accept TLS handshakes with the original SNI on
+# the user's network even when the default DNS-resolved IPs are DPI-blocked.
+# Confirmed via nfqws DPI bypass + curl + HTTP response check.
+
+# === Instagram: main domain ===
+157.240.0.174 instagram.com
+157.240.0.174 www.instagram.com
+157.240.0.174 b.i.instagram.com
+157.240.0.174 help.instagram.com
+
+# === Instagram: static/asset subdomains (logos, JS, CSS) ===
+57.144.244.192 static.cdninstagram.com
+57.144.244.192 graph.instagram.com
+57.144.244.192 i.instagram.com
+57.144.244.192 api.instagram.com
+
+# === Instagram: scontent (profile pics, posts, stories, reels) ===
+# 31.13.66.63 works for all scontent-* subdomains on this network.
+31.13.66.63 scontent.cdninstagram.com
+31.13.66.63 scontent-hel3-1.cdninstagram.com
+31.13.66.63 scontent-hel3-2.cdninstagram.com
+31.13.66.63 scontent-hel2-1.cdninstagram.com
+31.13.66.63 scontent-lga3-1.cdninstagram.com
+31.13.66.63 scontent-lax3-1.cdninstagram.com
+31.13.66.63 scontent-iad3-1.cdninstagram.com
+31.13.66.63 scontent-ord2-1.cdninstagram.com
+31.13.66.63 scontent-dfw5-1.cdninstagram.com
+31.13.66.63 cdninstagram.com
+
+# === Facebook: main domain ===
+157.240.0.35 fbcdn.net
+157.240.0.35 www.fbcdn.net
+157.240.0.35 facebook.com
+157.240.0.35 www.facebook.com
+157.240.0.35 fb.com
+157.240.0.35 fbsbx.com
+
+# === Facebook: static/scontent ===
+57.144.244.128 static.xx.fbcdn.net
+57.144.244.128 scontent.xx.fbcdn.net
+57.144.244.34 z-p42-chat-e2ee-ig.facebook.com
+
+# === WhatsApp: ALL pages (verified 2026-09-01) ===
+# 57.144.244.1 is the key CDN edge that bypasses DPI for WhatsApp.
+# It's in the 57.144.244.x range that the DPI doesn't fingerprint.
+# Tested: faq (200), web (200), main (200), icon (200), JS (200), CSS (200)
+57.144.244.1 whatsapp.com
+57.144.244.1 www.whatsapp.com
+57.144.244.1 web.whatsapp.com
+57.144.244.1 faq.whatsapp.com
+57.144.245.32 static.whatsapp.net
+57.144.245.32 scontent.whatsapp.net
+57.144.244.1 blog.whatsapp.com
+57.144.244.1 g.whatsapp.net
+57.144.244.1 whatsappbusiness.com

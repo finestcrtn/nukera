@@ -1,0 +1,4 @@
+--filter-tcp=80,443 --hostlist=/etc/unblocker/hostlists/general.sites
+# 51_quic_social.strat
+# --filter-udp=443 --filter-l7=quic --hostlist=/etc/unblocker/hostlists/social.sites --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-autottl=2 --dpi-desync-any-protocol=1
+--filter-udp=443 --filter-l7=quic --hostlist=/etc/unblocker/hostlists/social.sites --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-autottl=2 --dpi-desync-any-protocol=1
