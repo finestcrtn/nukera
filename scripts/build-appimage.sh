@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # build-appimage.sh — build the portable Nukera AppImage.
 #
-# Produces ./Nukera-<gitrev>-x86_64.AppImage containing the full payload
+# Produces ./Nukera-Linux-x86_64.AppImage containing the full payload
 # (GUI bundle + CLI + nfqws + strategies + unit + polkit rule). The
 # AppImage self-installs that payload into the exact /usr/lib/nukera
 # layout the Arch package ships, then launches the installed GUI.
@@ -45,7 +45,7 @@ echo "=== Flutter GUI ==="
 (cd unblocker_gui && flutter pub get >/dev/null && flutter build linux --release)
 
 VER="$(git rev-parse --short HEAD 2>/dev/null || echo dev)"
-OUT="Nukera-${VER}-x86_64.AppImage"
+OUT="Nukera-Linux-x86_64.AppImage"
 
 BUILD="$(mktemp -d /tmp/nukera-appimage.XXXXXX)"
 trap 'rm -rf "$BUILD"' EXIT
