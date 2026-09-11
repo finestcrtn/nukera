@@ -16,13 +16,11 @@
 
 ![Nukera](assets/nukera_img.png)
 
-Nukera is a GUI app based on Zapret’s principles and other ways of bypass, designed to unblock **Instagram, Telegram, YouTube, Discord**, and all other blocked websites — even those that other Zapret alternatives cannot unblock. Best of all, it requires no manual configuration: Just turn it on, and it works.
+**Nukera is the best and easiest version of Zapret/ByeDPI: it unblocks more sites than any alternative, and takes the least time to set up.**
 
-If you've tried Zapret, ByeDPI or similar tools before, you know the real pain: picking a strategy, tuning configs, running commands, reading guides, playing with proxy settings, and still ending up with half the sites blocked. Nukera is that whole struggle compressed into a single switch. It is, in plain words, the easiest and most user-friendly version of what Zapret and ByeDPI do — everything those tools offer, without any of the setup they demand.
+Nukera is a GUI app based on Zapret’s principles and other ways of bypass, designed to unblock **Instagram, Telegram, YouTube, Discord**, and all other blocked websites — even those that other Zapret alternatives cannot unblock. Just turn it on, and it works.
 
-That's not marketing talk: Nukera unblocks **more sites than any other alternative**. It doesn't rely on one approach. Under the hood it runs a full strategy pool — `nfqws` DPI-desync strategies, ByeDPI-style tricks, a built-in WebSocket proxy for the Telegram app, and a DoH resolver with IP maps for the worst cases. Every one of these methods has usually been validated on real Russian ISP networks where other tools fail, and the ones that don't help your specific provider are simply skipped automatically. If a site is blocked on your network, Nukera has a real chance of being the only app that still opens it.
-
-Setup takes the least time of anything you've used: no terminal, no configs, no guides. You install Nukera (Windows — double-click the `.exe`, Android — install the `.apk`, Linux — run the `.AppImage`), press one button, and everything that works on your network is unlocked right away. On top of that, Nukera is private and free: everything runs locally, nothing is sent anywhere, and all of it is open source.
+No strategy picking, configs, terminals or guides. Instead of one fragile method it runs a full strategy pool — `nfqws` DPI-desync strategies, ByeDPI-style tricks, a built-in WebSocket proxy for the Telegram app, and a DoH resolver with IP maps — so it unlocks sites on networks where other tools fail. Everything runs locally, nothing is sent anywhere, and all of it is open source.
 
 Nukera is cross-platform: Windows, Linux and Android — the same app, the same interface, working the same way on every device.
 
