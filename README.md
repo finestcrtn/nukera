@@ -83,4 +83,3 @@ scripts/build-appimage.sh
 - tg-ws-proxy
 - ByeDPI
 
-Без этих проектов Nukera не было бы.
