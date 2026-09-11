@@ -121,7 +121,7 @@ fi
 echo "  Hostlists + static hosts installed"
 
 # ─── 10. .desktop file ──────────────────────────────────────────────
-install -m 0644 "$ROOT/unblocker.desktop" /usr/share/applications/unblocker.desktop
+install -m 0644 "$ROOT/packaging/desktop/unblocker.desktop" /usr/share/applications/unblocker.desktop
 echo "  Desktop file installed"
 
 # ─── 11. Restart polkitd to pick up rules ───────────────────────────

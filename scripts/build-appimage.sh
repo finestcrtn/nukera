@@ -84,7 +84,7 @@ touch "$RFS/etc/unblocker/hostlists/auto.txt"
 # System integration
 install -m644 packaging/systemd/unblocker.service "$RFS/usr/lib/systemd/system/unblocker.service"
 install -m644 packaging/polkit/50-unblocker.rules "$RFS/etc/polkit-1/rules.d/50-unblocker.rules"
-install -m644 unblocker.desktop "$RFS/usr/share/applications/unblocker.desktop"
+install -m644 packaging/desktop/unblocker.desktop "$RFS/usr/share/applications/unblocker.desktop"
 install -m644 assets/icons/nukera_icon.png "$RFS/usr/share/pixmaps/nukera.png"
 
 # Version marker (self-update check)
