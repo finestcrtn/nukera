@@ -4,11 +4,11 @@
 
 <div align="center">
 
-# 💾 DOWNLOAD — СКАЧАТЬ
+[💾 **DOWNLOAD — СКАЧАТЬ**](https://github.com/finestcrtn/nukera/releases/latest)
 
-[<img src="https://cdn.simpleicons.org/windows/ffffff" width="22"/> **Windows**](https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera.exe) ·
-[<img src="https://cdn.simpleicons.org/android/ffffff" width="22"/> **Android**](https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-arm64-v8a.apk) ·
-[<img src="https://cdn.simpleicons.org/linux/ffffff" width="22"/> **Linux**](https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-Linux-x86_64.AppImage)
+[<img src="https://cdn.jsdelivr.net/npm/simple-icons@12/icons/windows.svg" width="22" style="filter:brightness(0) invert(1)"/> **Windows**](https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera.exe) ·
+[<img src="https://cdn.jsdelivr.net/npm/simple-icons@12/icons/android.svg" width="22" style="filter:brightness(0) invert(1)"/> **Android**](https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-arm64-v8a.apk) ·
+[<img src="https://cdn.jsdelivr.net/npm/simple-icons@12/icons/linux.svg" width="22" style="filter:brightness(0) invert(1)"/> **Linux**](https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-Linux-x86_64.AppImage)
 
 </div>
 
