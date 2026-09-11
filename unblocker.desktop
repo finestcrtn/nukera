@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Nukera
-Comment=One-tap DPI + IP-block bypass for Discord/YouTube/Instagram/Telegram
-Exec=/usr/lib/nukera/unblocker-gui
-Icon=/usr/lib/nukera/data/nukera_icon.png
-Terminal=false
-Type=Application
-Categories=Network;Security;
-Keywords=vpn;proxy;bypass;dpi;nukera;
