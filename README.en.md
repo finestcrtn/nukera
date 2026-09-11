@@ -83,3 +83,11 @@ Rust core + Flutter (GTK) GUI · `nfqws` (zapret) DPI desync with strategy pool 
 ## Help
 
 `Nukera-Linux-x86_64.AppImage --verify` — check what your system supports before installing.
+
+## Based on
+
+- Zapret
+- tg-ws-proxy
+- ByeDPI
+
+Nukera wouldn't exist without these projects.

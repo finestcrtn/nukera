@@ -76,3 +76,11 @@ scripts/build-appimage.sh
 ## Помощь
 
 `Nukera-Linux-x86_64.AppImage --verify` — проверка, что поддерживает ваша система, до установки.
+
+## Основано на
+
+- Zapret
+- tg-ws-proxy
+- ByeDPI
+
+Без этих проектов Nukera не было бы.
