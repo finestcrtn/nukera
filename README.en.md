@@ -18,6 +18,8 @@
 
 Nukera is a GUI app based on Zapret’s principles and other ways of bypass, designed to unblock **Instagram, Telegram, YouTube, Discord**, and all other blocked websites — even those that other Zapret alternatives cannot unblock. Best of all, it requires no manual configuration: Just turn it on, and it works.
 
+Nukera is cross-platform: Windows, Linux and Android — the same app, the same interface, working the same way on every device.
+
 ## Why Nukera
 
 - **Just turn it on.** Everything works right away — like a VPN, but free and private. No terminal, no config files, no manual proxy setup.
@@ -25,12 +27,27 @@ Nukera is a GUI app based on Zapret’s principles and other ways of bypass, des
 - **Works where other tools give up.** Instagram Reels, WhatsApp and Telegram — right away, no fiddling with settings.
 - **Free, local, private.** Everything runs on your machine; no data is sent anywhere.
 - **Open source.** Rust core + Flutter GUI.
+- **Cross-platform.** Windows, Linux, Android — one app, one way of working, the same result on every OS.
 
 ## Install — 30 seconds
 
 - **Windows:** download **`Nukera.exe`** and run it.
 - **Android:** install **`Nukera-arm64-v8a.apk`** (allow installing from unknown sources).
 - **Linux:** run **`Nukera-Linux-x86_64.AppImage`** by double-click and accept **one** password prompt on first launch — after that it works without prompts.
+
+## 🛡️ Security — antivirus false positives
+
+Your antivirus (most often Windows Defender) may flag `Nukera.exe` as a threat. **That's a false positive — the app is 100% safe.**
+
+Why it happens:
+
+- **The app is unsigned.** I'm an open-source developer, and a code-signing certificate with Microsoft Store registration costs hundreds of dollars a year. Windows treats unsigned new executables as suspicious by default.
+- **Familiar malware toolchain:** the Windows build is made with Flutter and packaged via PyInstaller and Inno Setup — the exact tools malware authors use. That's why scanner heuristics flag harmless apps built with the same stack.
+
+Don't worry:
+
+- The code is fully open-source — check it right in the repository or build the app yourself.
+- Nukera **doesn't collect or send your data anywhere**. It only forwards your traffic to bypass censorship; everything stays on your device.
 
 ## How to use
 
