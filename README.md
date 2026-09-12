@@ -9,6 +9,7 @@
 <a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera.exe"><img height="24" src="https://skillicons.dev/icons?i=windows" alt=""/> <strong>Windows</strong></a>
 <a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-arm64-v8a.apk"><img height="24" src="https://skillicons.dev/icons?i=androidstudio" alt=""/> <strong>Android</strong></a>
 <a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-Linux-x86_64.AppImage"><img height="24" src="https://skillicons.dev/icons?i=linux" alt=""/> <strong>Linux</strong></a>
+<a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-MacOS.dmg"><img height="24" src="https://skillicons.dev/icons?i=apple" alt=""/> <strong>MacOS</strong></a>
 
 </div>
 
