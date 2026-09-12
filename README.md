@@ -29,8 +29,8 @@ Nukera — анблочит **Instagram, Telegram, YouTube, Discord, Facebook, W
 - **Открытый исходный код.** Ядро на Rust + GUI на Flutter.
 - **Кросс-платформенно.** Windows, Linux, Android — приложение работает на всех платформах из коробки. 
 <p align="center">
-  <img width="450" alt="Image" src="https://github.com/user-attachments/assets/6ca7f2b6-b4ba-41f4-a06e-a7af56927057" />
-  <img width="450" alt="Image" src="https://github.com/user-attachments/assets/8060c040-69f4-4fa7-9847-da16747d283a" />
+  <img width="400" alt="Image" src="https://github.com/user-attachments/assets/6ca7f2b6-b4ba-41f4-a06e-a7af56927057" />
+  <img width="400" alt="Image" src="https://github.com/user-attachments/assets/8060c040-69f4-4fa7-9847-da16747d283a" />
 </p>
 
 
