@@ -9,12 +9,15 @@
 <a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera.exe"><img height="24" src="https://skillicons.dev/icons?i=windows" alt=""/> <strong>Windows</strong></a>
 <a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-arm64-v8a.apk"><img height="24" src="https://skillicons.dev/icons?i=androidstudio" alt=""/> <strong>Android</strong></a>
 <a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-Linux-x86_64.AppImage"><img height="24" src="https://skillicons.dev/icons?i=linux" alt=""/> <strong>Linux</strong></a>
+<a href="https://github.com/finestcrtn/nukera/releases/download/v0.1.0/Nukera-MacOS.dmg"><img height="24" src="https://skillicons.dev/icons?i=apple" alt=""/> <strong>MacOS</strong></a>
 
 </div>
 
 ## What it is
 
-![Nukera](assets/nukera_img.png)
+<p align="center">
+  <img width="300" src="assets/nukera_img.png" alt="Nukera" />
+</p>
 
 **Nukera is the best and easiest version of Zapret/ByeDPI: it unblocks more sites than any alternative, and takes the least time to set up.**
 
@@ -22,7 +25,7 @@ Nukera is a GUI app based on Zapret’s principles and other ways of bypass, des
 
 No strategy picking, configs, terminals or guides. Instead of one fragile method it runs a full strategy pool — `nfqws` DPI-desync strategies, ByeDPI-style tricks, a built-in WebSocket proxy for the Telegram app, and a DoH resolver with IP maps — so it unlocks sites on networks where other tools fail. Everything runs locally, nothing is sent anywhere, and all of it is open source.
 
-Nukera is cross-platform: Windows, Linux and Android — the same app, the same interface, working the same way on every device.
+Nukera is cross-platform: Windows, MacOS, Linux and Android — the same app, the same interface, working the same way on every device.
 
 ## Why Nukera
 
@@ -31,13 +34,18 @@ Nukera is cross-platform: Windows, Linux and Android — the same app, the same 
 - **Works where other tools give up.** Instagram Reels, WhatsApp and Telegram — right away, no fiddling with settings.
 - **Free, local, private.** Everything runs on your machine; no data is sent anywhere.
 - **Open source.** Rust core + Flutter GUI.
-- **Cross-platform.** Windows, Linux, Android — one app, one way of working, the same result on every OS.
+- **Cross-platform.** Windows, MacOS, Linux, Android — one app, one way of working, the same result on every OS.
+<p align="center">
+  <img width="400" alt="Image" src="https://github.com/user-attachments/assets/6ca7f2b6-b4ba-41f4-a06e-a7af56927057" />
+  <img width="400" alt="Image" src="https://github.com/user-attachments/assets/8060c040-69f4-4fa7-9847-da16747d283a" />
+</p>
 
 ## Install — 30 seconds
 
 - **Windows:** download **`Nukera.exe`** and run it.
 - **Android:** install **`Nukera-arm64-v8a.apk`** (allow installing from unknown sources).
 - **Linux:** run **`Nukera-Linux-x86_64.AppImage`** by double-click and accept **one** password prompt on first launch — after that it works without prompts.
+- **MacOS:** double-click **`Nukera-MacOS.dmg`** and in the window that opens, click on Install Nukera.command to install Nukera into the Applications folder. After the first launch, accept **one** password prompt — after that it runs without prompts.
 
 ## 🛡️ Security — antivirus false positives
 
@@ -67,7 +75,7 @@ Don't worry:
 - Requires Linux with **systemd** and a recent glibc (≥ 2.39): Arch/Manjaro, Fedora ≥ 39 (incl. Silverblue), Ubuntu 24.04 LTS, Debian 13, openSUSE Tumbleweed.
 - Older Ubuntu 22.04 / Debian 12 may not start — a warning is shown.
 - Some ISPs still block some sites; no tool can guarantee every site on every network.
-- No macOS build yet.
+
 
 ## From source (for developers)
 
