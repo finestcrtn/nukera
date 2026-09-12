@@ -12,9 +12,11 @@
 
 </div>
 
-## Что это
+<h2>Что это</h2>
 
-![Nukera](assets/nukera_img.png)
+<p align="center">
+  <img width="300" src="assets/nukera_img.png" alt="Nukera" />
+</p>
 
 Nukera — анблочит **Instagram, Telegram, YouTube, Discord, Facebook, Whatsapp и все остальные** заблокированные сайты, даже те, которые другие варианты Zapret разблокировать не могут. Основано на Zapret и других принципах обхода, доработанных и заранее настроенных, в одном GUI приложении. Включил — сразу работает. Любая ОС: Windows, Linux и Android, один репозиторий для всех платформ. Привычный итерфейс на всех устройствах. ВПН без ВПН. 
 
@@ -26,6 +28,11 @@ Nukera — анблочит **Instagram, Telegram, YouTube, Discord, Facebook, W
 - **Бесплатно, локально и приватно.** Всё на вашем компьютере, данные никуда не отправляются, это не VPN.
 - **Открытый исходный код.** Ядро на Rust + GUI на Flutter.
 - **Кросс-платформенно.** Windows, Linux, Android — приложение работает на всех платформах из коробки. 
+<p align="center">
+  <img width="450" alt="Image" src="https://github.com/user-attachments/assets/6ca7f2b6-b4ba-41f4-a06e-a7af56927057" />
+  <img width="450" alt="Image" src="https://github.com/user-attachments/assets/8060c040-69f4-4fa7-9847-da16747d283a" />
+</p>
+
 
 ## Установка — 30 секунд
 
