@@ -47,14 +47,36 @@ Nukera is cross-platform: Windows, MacOS, Linux and Android — the same app, th
 - **Linux:** run **`Nukera-Linux-x86_64.AppImage`** by double-click and accept **one** password prompt on first launch — after that it works without prompts.
 - **MacOS:** double-click **`Nukera-MacOS.dmg`** and in the window that opens, click on Install Nukera.command to install Nukera into the Applications folder. After the first launch, accept **one** password prompt — after that it runs without prompts.
 
-## 🛡️ Security — antivirus false positives
+##  Security — antivirus false positives
 
-Your antivirus (most often Windows Defender) may flag `Nukera.exe` as a threat. **That's a false positive — the app is 100% safe.**
 
-Why it happens:
+During my tests, Windows Defender on my PC deletes the downloaded .exe file, flagging it as Trojan:Script/Wacatac.H!ml:
 
-- **The app is unsigned.** I'm an open-source developer, and a code-signing certificate with Microsoft Store registration costs hundreds of dollars a year. Windows treats unsigned new executables as suspicious by default.
-- **Familiar malware toolchain:** the Windows build is made with Flutter and packaged via PyInstaller and Inno Setup — the exact tools malware authors use. That's why scanner heuristics flag harmless apps built with the same stack.
+Short answer: This is a known false positive; the application contains no malware. I have already submitted a request to Microsoft for a review to have this marked as a false positive at: Submission ID: bd322a22-89b6-417f-8a91-765a41bb8e0d
+
+The !ml suffix in the threat name stands for Machine Learning and heuristic analysis. It means the file was flagged by automated algorithms rather than an exact match with a database of known viruses. Windows Defender automatically flags new files if they meet three specific criteria:
+
+   1. Lack of a digital signature: Purchasing an expensive commercial certificate is impractical for a free, open-source project.
+   2. Low file reputation network-wide: The file is brand new, and Microsoft has not yet gathered enough download statistics for it.
+   3. Operational specifics: Our application functions as a CLI tool, interacts with system commands, and modifies the PATH environment variable—specifically unpacking data into AppData upon its first launch. To the antivirus AI, this behavior looks suspicious at first glance, causing it to overprotect.
+
+Why you can trust the project:
+
+* Completely open-source: The entire project code is publicly available in this repository. You can personally verify every single line.
+* No signature matches: Not a single antivirus program in the world finds actual signatures (digital fingerprints) of real malware within our application's code.
+
+How to run the application if Windows blocked it:
+
+   1. Open Windows Security -> Virus & threat protection -> Protection history.
+   2. Find the blocked file, click the Actions button, and select Allow on device. Then download it again.
+   3. Open Windows Security.
+   4. Click Virus & threat protection.
+   5. Click Manage settings.
+   6. Toggle the Real-time protection switch to Off.
+   7. Click Yes in the confirmation prompt.
+   8. Open the application. If SmartScreen blocks the window from launching, click More info, and then click Run anyway. Then activate the bypass.
+   9. After launching, you can turn Real-time protection back on; the application has already unpacked its data and will no longer trigger Defender.
+
 
 Don't worry:
 
