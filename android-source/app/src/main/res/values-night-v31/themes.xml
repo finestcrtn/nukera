@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Nukera" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/nukera_bg</item>
+        <item name="android:navigationBarColor">@color/nukera_bg</item>
+        <item name="android:statusBarColor">@color/nukera_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:forceDarkAllowed">false</item>
+
+        <item name="colorPrimary">@color/nukera_primary</item>
+        <item name="colorPrimaryVariant">@color/nukera_primary_dark</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/nukera_accent</item>
+        <item name="colorSecondaryVariant">@color/nukera_primary</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+
+        <item name="colorSurface">@color/nukera_surface</item>
+        <item name="colorOnSurface">@color/nukera_text</item>
+        <item name="colorError">@color/nukera_error</item>
+        <item name="colorOnError">#FFFFFF</item>
+
+        <item name="materialCardViewStyle">@style/SmallShadowCard</item>
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+        <item name="android:textAppearanceListItem">@style/TextPrimary</item>
+        <item name="android:textAppearanceListItemSecondary">@style/TextSummary</item>
+        <item name="android:textAppearanceListItemSmall">@style/TextSummary</item>
+    </style>
+
+    <style name="AppToolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="android:background">@color/nukera_surface</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="CircleButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">60dp</item>
+        <item name="android:textSize">0sp</item>
+        <item name="backgroundTint">@color/nukera_primary</item>
+        <item name="iconTint">#FFFFFF</item>
+    </style>
+
+    <style name="App.Preference.SwitchPreference" parent="Preference.SwitchPreference.Material">
+        <item name="android:widgetLayout">@layout/material_switch</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/nukera_surface_elevated</item>
+        <item name="android:textColorPrimary">@color/nukera_text</item>
+        <item name="android:textColorSecondary">@color/nukera_text_dim</item>
+    </style>
+
+    <style name="TextPrimary" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextSummary" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

@@ -1,0 +1,51 @@
+-d1 -d3+s -s6+s -d9+s -s12+s -d15+s -s20+s -d25+s -s30+s -d35+s -r1+s -S -a1 -As -d1 -d3+s -s6+s -d9+s -s12+s -d15+s -s20+s -d25+s -s30+s -d35+s -S -a1
+-d1 -o1 -a1 -Ar -o1 -a1 -At -f-1 -r1+s -a1
+-d1 -s1 -q1 -a1 -Ar -s5 -o1+s -d3+s -s6+s -d9+s -s12+s -d15+s -s20+s -d25+s -s30+s -d35+s -a1
+-d1+s -o2 -s5 -r5 -a1
+-d6+s -q4+hm -o2 -a1
+-d9+s -q20+s -s25+s -t5 -a1 -At,r,s -r1+h -a1
+-f1 -t5 -n "google.com" -q3+h -Qr -f2 -q1 -r1+s -t15 -q1 -o2 -a1
+-n instagram.com -Qr -f1 -r1+s -a1
+-o1 -a1 -An -f1+nme -t6 -a1
+-o1 -a1 -Ar -q1 -a1 -At -f-1 -r1+s -a1
+-o1 -a1 -At,r,s -d1 -a1
+-o1 -a1 -At,r,s -f-1 -a1 -Ar,s -o1 -a1 -At -r1+s -f-1 -t6 -a1
+-o1 -a1 -At,r,s -f-1 -a1 -At,r,s -d1:11+sm -S -a1 -At,r,s -n "google.com" -Qr -f1 -d1:11+sm -s1:11+sm -S -a1
+-o1 -d1 -a1 -At,r,s -s1 -d1 -s5+s -s10+s -s15+s -s20+s -r1+s -S -a1 -As -s1 -d1 -s5+s -s10+s -s15+s -s20+s -S -a1
+-o1 -d1 -r1+s -S -s1+s -d3+s -a1
+-o1 -d1+s -r1+s -a1
+-o1 -d1+s -s3+s -a1
+-o1 -r-5+se -a1
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a10
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a10 -F
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a10 -t12
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a10 -t3
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a10 -t5
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a10 -t8
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a3
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a3 -F
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a3 -t12
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a3 -t3
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a3 -t5
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a3 -t8
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a5
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a5 -F
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a5 -t12
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a5 -t3
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a5 -t5
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -Ku -a5 -t8
+-o1 -r-5+se -a1 -At,r,s -d1 -n "google.com" -Qr -f-1 -a1
+-o1 -s1+s -r1+s -a1
+-o1 -s1+s -s3+s -a1
+-o1 -s4 -s6 -a1
+-o1+s -d3+s -a1
+-o2 -O4 -s1 -q1 -a1 -Ar -s5 -o1+s -f1+s -r20+s -a1
+-o3 -d7 -a1
+-q1 -a1 -Ar -o1 -a1 -At -f-1 -r1+s -a1
+-q1 -d1+s -r1+s -a1
+-q1 -r25+s -a1
+-q1 -s1+s -r1+s -a1
+-q2 -s2 -s3+s -r3 -s4 -r4 -s5+s -r5+s -s6 -s7+s -r8 -s9+s -Qr -Mh,d,r -a1 -At,r -s2+s -r2 -d2 -s3 -r3 -r4 -s4 -d5+s -r5 -d6 -s7+s -d7 -a1
+-r8 -o2 -s7 -q4+s -a1
+-s5+s -s35+s -m4 -a1
+-n instagram.com -Qr -f1 -r1+s -a1

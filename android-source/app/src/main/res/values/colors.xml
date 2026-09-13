@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nukera_bg">#0B0E14</color>
+    <color name="nukera_surface">#131A24</color>
+    <color name="nukera_surface_elevated">#1C2533</color>
+    <color name="nukera_surface_border">#2A3A4D</color>
+
+    <color name="nukera_hero_off">#1C2533</color>
+    <color name="nukera_hero_glow_off">#1A2535</color>
+    <color name="nukera_hero_on">#1D4ED8</color>
+    <color name="nukera_hero_on_end">#3B82F6</color>
+    <color name="nukera_hero_glow_on">#301D4ED8</color>
+    <color name="nukera_hero_optimizing">#6D28D9</color>
+    <color name="nukera_hero_optimizing_end">#7C3AED</color>
+    <color name="nukera_hero_glow_optimizing">#306D28D9</color>
+
+    <color name="nukera_primary">#3B82F6</color>
+    <color name="nukera_primary_dark">#1D4ED8</color>
+    <color name="nukera_accent">#60A5FA</color>
+
+    <color name="nukera_text">#E2E8F0</color>
+    <color name="nukera_text_dim">#64748B</color>
+
+    <color name="nukera_glass_bg">#1AFFFFFF</color>
+    <color name="nukera_glass_border">#28FFFFFF</color>
+    <color name="nukera_glass_text">#CBD5E1</color>
+
+    <color name="nukera_green">#34D399</color>
+    <color name="nukera_error">#EF4444</color>
+    <color name="nukera_stop_bg">#1AEF4444</color>
+    <color name="nukera_stop_border">#3FEF4444</color>
+    <color name="nukera_stop_text">#FCA5A5</color>
+
+    <color name="nukera_icon_bg">#0B0E14</color>
+</resources>

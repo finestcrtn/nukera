@@ -1,0 +1,4 @@
+#!/bin/sh
+# Nukera launcher — runs the CLI with the system Python (no deps needed).
+DIR="$(cd "$(dirname "$0")" && pwd)"
+exec python3 "$DIR/cli/nukera.py" "$@"

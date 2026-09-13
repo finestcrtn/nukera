@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="nukera_ui_settings">
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/nukera_proxy"
+        app:iconSpaceReserved="false">
+
+        <EditTextPreference
+            android:key="nukera_max_connections"
+            android:title="@string/nukera_max_connections_setting"
+            android:inputType="number"
+            android:defaultValue="512"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:key="nukera_buffer_size"
+            android:title="@string/nukera_buffer_size_setting"
+            android:inputType="number"
+            android:defaultValue="16384"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
+
+        <CheckBoxPreference
+            android:key="nukera_no_domain"
+            android:title="@string/nukera_no_domain_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_tcp_fast_open"
+            android:title="@string/nukera_tcp_fast_open_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/nukera_desync"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="nukera_hosts_mode"
+            android:title="@string/nukera_hosts_mode_setting"
+            android:entries="@array/nukera_hosts_modes"
+            android:entryValues="@array/nukera_hosts_modes_entries"
+            android:defaultValue="disable"
+            android:summary="%s"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_hosts_blacklist"
+            android:title="@string/nukera_hosts_blacklist_setting"
+            android:dialogTitle="@string/nukera_hosts_blacklist_setting"
+            android:inputType="textMultiLine"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_hosts_whitelist"
+            android:title="@string/nukera_hosts_whitelist_setting"
+            android:dialogTitle="@string/nukera_hosts_whitelist_setting"
+            android:inputType="textMultiLine"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_default_ttl"
+            android:title="@string/nukera_default_ttl_setting"
+            android:inputType="number"
+            android:defaultValue="0"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="nukera_desync_method"
+            android:title="@string/nukera_desync_method_setting"
+            android:entries="@array/nukera_desync_methods"
+            android:entryValues="@array/nukera_desync_methods_entries"
+            android:defaultValue="oob"
+            android:summary="%s"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_split_position"
+            android:title="@string/nukera_split_position_setting"
+            android:inputType="numberSigned"
+            android:defaultValue="1"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_split_at_host"
+            android:title="@string/nukera_split_at_host_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_drop_sack"
+            android:title="@string/nukera_drop_sack_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_fake_ttl"
+            android:title="@string/nukera_fake_ttl_setting"
+            android:inputType="number"
+            android:defaultValue="8"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_fake_offset"
+            android:title="@string/nukera_fake_offset_setting"
+            android:inputType="number"
+            android:defaultValue="0"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_fake_sni"
+            android:title="@string/sni_of_fake_packet"
+            android:defaultValue="www.iana.org"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_oob_data"
+            android:title="@string/oob_data"
+            android:defaultValue="a"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/nukera_protocols_category"
+        app:iconSpaceReserved="false">
+
+        <CheckBoxPreference
+            android:key="nukera_desync_http"
+            android:title="@string/desync_http"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_desync_https"
+            android:title="@string/desync_https"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_desync_udp"
+            android:title="@string/desync_udp"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/desync_http_category"
+        app:iconSpaceReserved="false">
+
+        <CheckBoxPreference
+            android:key="nukera_host_mixed_case"
+            android:title="@string/nukera_host_mixed_case_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_domain_mixed_case"
+            android:title="@string/nukera_domain_mixed_case_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_host_remove_spaces"
+            android:title="@string/nukera_host_remove_spaces_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/desync_https_category"
+        app:iconSpaceReserved="false">
+
+        <CheckBoxPreference
+            android:key="nukera_tlsrec_enabled"
+            android:title="@string/nukera_tlsrec_enabled_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="nukera_tlsrec_position"
+            android:title="@string/nukera_tlsrec_position_setting"
+            android:inputType="numberSigned"
+            android:defaultValue="0"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:key="nukera_tlsrec_at_sni"
+            android:title="@string/nukera_tlsrec_at_sni_setting"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/desync_udp_category"
+        app:iconSpaceReserved="false">
+
+        <EditTextPreference
+            android:key="nukera_udp_fake_count"
+            android:title="@string/nukera_udp_fake_count"
+            android:inputType="number"
+            android:defaultValue="1"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+
+    </androidx.preference.PreferenceCategory>
+
+</PreferenceScreen>

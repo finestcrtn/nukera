@@ -1,0 +1,7 @@
+# Control domains — reachable with or without bypass on most networks.
+# These prove the probe harness itself works; a healthy run should pass 100%.
+example.com
+www.google.com
+www.bing.com
+en.wikipedia.org
+www.gnu.org

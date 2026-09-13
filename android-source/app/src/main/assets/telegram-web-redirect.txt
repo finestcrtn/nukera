@@ -1,0 +1,13 @@
+# Telegram Web real backend IPs (current A records, Sep 2026).
+# Browser resolution may bypass our DNS hosts (DoH/DoT/QUIC) and get these
+# real IPs directly. hev redirects any TCP/UDP:443 to these IPs back to the
+# maplist target 149.154.167.220 so the browser always hits the non-blocked
+# edge while byedpi hides the SNI.
+149.154.167.99
+149.154.175.209
+149.154.174.100
+149.154.170.96
+149.154.171.237
+149.154.171.236
+149.154.170.100
+149.154.166.110

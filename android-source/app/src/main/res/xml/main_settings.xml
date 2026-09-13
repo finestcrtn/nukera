@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="main_settings">
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/general_category">
+
+        <ListPreference
+            android:key="language"
+            android:icon="@drawable/ic_language"
+            android:title="@string/lang_settings"
+            android:entries="@array/languages"
+            android:entryValues="@array/languages_entries"
+            android:summary="%s"
+            android:defaultValue="system" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/automation">
+
+        <SwitchPreference
+            android:key="autostart"
+            android:icon="@drawable/ic_power"
+            android:title="@string/autostart_settings"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="auto_connect"
+            android:icon="@drawable/ic_autorenew"
+            android:title="@string/autoconnect_settings"
+            android:defaultValue="false" />
+
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/nukera_category">
+
+        <Preference
+            android:key="current_strategy"
+            android:icon="@drawable/ic_speed"
+            android:title="@string/current_strategy" />
+
+    </androidx.preference.PreferenceCategory>
+
+</PreferenceScreen>

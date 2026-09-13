@@ -1,0 +1,81 @@
+# ── Builds & binaries ────────────────────────────
+build/
+dist/
+out/
+*.exe
+*.msi
+*.apk
+*.aab
+*.AppImage
+*.appimage
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.dll
+*.sys
+*.so
+*.dylib
+
+# Rust
+/target/
+**/target/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+**/windows/flutter/ephemeral/
+**/windows/flutter/generated_plugin_registrant.*
+**/windows/flutter/generated_plugins.cmake
+**/macos/Flutter/ephemeral/
+Pods/
+.vs/
+
+# Gradle / Android
+.gradle/
+.kotlin/
+**/.cxx/
+local.properties
+*.jks
+*.keystore
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+**/tools/python/
+
+# Runtime state
+state/
+*.log
+*.pid
+*.secret
+
+# macOS
+.DS_Store
+
+# Editors & AI leftovers
+.idea/
+.vscode/
+*.swp
+AGENTS.md
+CLAUDE.md
+.opencode/
+.cursor/
+.aider/
+
+# Third-party vendor engine (not part of Nukera source)
+hev-socks5-tunnel/
+/android-source/.gitmodules
+
+# Template residue conflicting with repo MIT license
+/android-source/LICENSE
+
+# Docs — keep only the two root readmes
+*.md
+!/README.md
+!/README.en.md
