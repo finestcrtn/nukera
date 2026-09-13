@@ -28,7 +28,7 @@ import sys
 import time
 
 APP_NAME = "nukera"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENGINE_DIR = os.path.join(ROOT, "engine")

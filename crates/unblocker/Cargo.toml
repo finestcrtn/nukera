@@ -1,6 +1,6 @@
 [package]
 name = "unblocker"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Unblocker CLI — one-toggle DPI + IP-block bypass (Linux Arch MVP)"
 default-run = "unblocker"

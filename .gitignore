@@ -70,6 +70,7 @@ CLAUDE.md
 
 # Third-party vendor engine (not part of Nukera source)
 hev-socks5-tunnel/
+android-source/app/src/main/cpp/byedpi/
 /android-source/.gitmodules
 
 # Template residue conflicting with repo MIT license

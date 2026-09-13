@@ -1,6 +1,6 @@
 [package]
 name = "unblocker-core"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Universal DPI + IP-block bypass engine — desync, DoH/hosts, auto-tune, health"
 
