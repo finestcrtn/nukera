@@ -80,3 +80,6 @@ android-source/app/src/main/cpp/byedpi/
 *.md
 !/README.md
 !/README.en.md
+
+# Ignore subdirectory .gitignore files (root .gitignore covers everything)
+**/.gitignore
