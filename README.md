@@ -44,7 +44,7 @@ Nukera — анблочит **Instagram, Telegram, YouTube, Discord, Facebook, W
 
 ## Безопасность: Ложное срабатывание на Windows
 
-При тестах у меня же на ПК Защитник  Windows  удаляет скачанный exe файл помечая его как Trojan:Script/Wacatac.H!ml:
+Защитник  Windows может  удалить скачанный exe файл помечая его как Trojan:Script/Wacatac.H!ml:
 
 Короткий ответ: это известное ложное срабатывание, в приложении нет вирусов.  Я уже подал заявку в Microsoft на ревью, чтобы они отметили это как ложное срабатывание: Submission ID: bd322a22-89b6-417f-8a91-765a41bb8e0d
 
